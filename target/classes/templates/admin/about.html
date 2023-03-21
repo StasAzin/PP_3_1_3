@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://www.pymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About user</title>
+</head>
+<body>
+<div style="font-size: 20px">
+    <p th:text="'Username: ' + ${user.username}"></p>
+    <p th:text="'Id: ' + ${user.id}"></p>
+    <p th:text="'Name: ' + ${user.name}"></p>
+    <p th:text="'Surname: ' + ${user.lastName}"></p>
+    <p th:text="'Age: ' + ${user.age}"></p>
+    <p th:text="'E-mail: ' + ${user.email}"></p>
+    <p th:text="'Role: ' + ${user.roles}"></p>
+</div>
+
+<br><br>
+
+<a href="/admin">Back</a><br>
+<form th:action="@{/logout}"><label>
+    <input th:type="submit" th:value="'Logout'">
+</label></form>
+</body>
+</html>

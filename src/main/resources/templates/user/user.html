@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+</head>
+<body>
+<div>
+    <h1>Username:<span th:text="${user.getUsername()}"></span></h1>
+    <table style="margin-left: auto; margin-right: auto;">
+        <thead style="background-color: #F5E8D0; font-size: 22px;">
+        <tr class="first">
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Age</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+        </tr>
+        </thead>
+        <tbody style="font-size: 20px">
+        <tr>
+            <th th:text="${user.id}"/>
+            <th th:text="${user.name}"/>
+            <th th:text="${user.lastName}"/>
+            <th th:text="${user.age}"/>
+            <th th:text="${user.email}"/>
+            <th th:text="${user.roles}"/>
+        </tr>
+        </tbody>
+    </table>
+
+    <form th:action="@{/logout}"><label>
+        <input th:type="submit" th:value="'Logout'">
+    </label></form>
+</div>
+</body>
+</html>
