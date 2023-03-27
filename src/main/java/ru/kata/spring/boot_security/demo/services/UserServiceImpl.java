@@ -12,6 +12,7 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsername(username).get();
     }
 
     @Override
@@ -41,11 +42,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
-        if (userFromDB != null) {
-            return false;
-        }
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
@@ -53,7 +49,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long id) {
-        return userRepository.getById(id);
+        Optional<User> user = userRepository.findById(id);
+        return user.orElse(null);
     }
 
     @Override
@@ -74,12 +71,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
-        }
+
+        User user = userRepository.findByUsername(username).orElse(null);
+
+        if (user == null)
+            throw new UsernameNotFoundException("User not found");
 
         return user;
     }

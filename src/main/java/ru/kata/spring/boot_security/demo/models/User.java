@@ -32,8 +32,7 @@ public class User implements UserDetails {
 
     private String email;
 
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @Fetch(FetchMode.JOIN)
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
             name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id")},
